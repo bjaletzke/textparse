@@ -3,58 +3,29 @@
 This is a super simple script written for myself and my odd use case.
 Using this, text written in excel in multiple columns can be quickly translated to a markdown file and saved.
 
-## Logic
-
-Row/Column (R/C) pairs that start with an uppercase dotted number or letter are section headers, so that '1.', 'A.' or 'I.' are section headers, and e.g. '2.1' is a subsection header
-R/C pairs that start with a dotted number or letter are section headers, so that '-', 'a.' or 'i.' are list items
-Columns that start with Strings are the content of the section. Each Text row / column should be on a new line
-
 ## Input / Output
 
-Logically, we have to traverse the data so that a structure of:
+### Content logic
+These will be h2 headers:
+- Numbered headers (e.g. "1. ", "2. ")
+- Uppercase letters (e.g. "A.", "B.")
+- Uppercase Roman numerals (e.g. "I.", "II.")
+    
+These will be h3+ headers depending on depth
+- Subsection headers (e.g. "1.1", "2.1.1")
 
-Input --->
+List items identified by:
+- Lowercase letters (e.g. "a.", "b.")
+- Lowercase Roman numerals (e.g. "i.", "ii.")
 
-| Section | List | Content |Content 2|
-|---------|------|---------| |
-| 1. Start| | | |
-| | start text | | |
-| | a.listitem | | |
-| | | a.a. text2 | |
-| | | a.b. text3 | |
-| | b. listitem2 | | |
-| | | b.a.text4 | |
-||||||
-| 2. Title | | | |
-| | maintext | | |
-| | 2.1 Section Title | | |
-| | | text | |
-| | | text | |
-| | | a. text | |
-| | additional main text | | |
-| | | subtext main | |
+Regular text content will be parsed as such
 
-Produces the result:
-
-OUTPUT --->
-
-## 1. Start
-
-start text
-a. listitem
-a.a. text2
-a.b. text3
-b. listitem2
-b.a. text
-
-## 2. Title
-
-maintext
-
-### 2.1 Section Title
-
-text
-text
-a. text
-additional main text
-subtext main
+Input Excel:                    Output Markdown:
+1. Main                        ## 1. Main
+text                          text
+a. list                       - list
+i. sublist                    1. sublist
+ii. sublist                   2. sublist
+b. list                       - list
+1.1 Subsection               ### 1.1 Subsection
+content                      content
